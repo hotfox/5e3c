@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Teflon.Modules.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Teflon.Modules"
+             xmlns:models="clr-namespace:Teflon.SDK.Models;assembly=SDK"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="BorderBrush" Color="Black">
+        </SolidColorBrush>
+        <DataTemplate DataType="{x:Type models:Product}">
+            <Grid Height="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Image>
+                    <Image.Source>
+                        <BitmapImage UriSource="C:\Users\Public\Pictures\Sample Pictures\Desert.jpg" />
+                    </Image.Source>
+                </Image>
+                <TextBlock Grid.Column="1" Text="{Binding Name}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type models:Test}">
+            <Border Height="100" Width="75"  BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        </TextBlock>
+                    </Border>
+                    <Border x:Name="EditBorder" Grid.Column="1" 
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0"
+                            Visibility="Hidden">
+                        <Button DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ProductsView}}}"
+                                Command="{Binding EditTestCommand}">
+                        </Button>
+                    </Border>
+                    <Border x:Name="CloseBorder" Grid.Column="2"
+                             BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0"
+                             Visibility="Hidden">
+                        <Button/>
+                    </Border>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=IsSelected,RelativeSource={RelativeSource TemplatedParent}}"
+                             Value="true">
+                    <Setter TargetName="EditBorder" Property="Visibility" Value="Visible">
+                    </Setter>
+                    <Setter TargetName="CloseBorder" Property="Visibility" Value="Visible">
+                    </Setter>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="Grid" Tag="{Binding Test,Mode=TwoWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="Products" Grid.Column="0" ItemsSource="{Binding Products}"
+                 SelectedItem="{Binding Product,Mode=OneWayToSource}">
+        </ListBox>
+        <ListBox Grid.Column="1" DataContext="{Binding ElementName=Products, Path=SelectedItem}"
+                 ItemsSource="{Binding Tests}" SelectedItem="{Binding ElementName=Grid,Path=Tag,Mode=OneWayToSource}"> 
+            <ListBox.Template>
+                <ControlTemplate TargetType="ListBox">
+                    <WrapPanel IsItemsHost="True">
+                    </WrapPanel>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightGray"/>
+                    </Style.Resources>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
+</UserControl>
