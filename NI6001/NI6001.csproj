@@ -35,7 +35,7 @@
       <HintPath>..\SimpleRuntime\bin\Debug\NationalInstruments.Common.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.DAQmx">
-      <HintPath>..\SimpleRuntime\bin\Debug\NationalInstruments.DAQmx.dll</HintPath>
+      <HintPath>.\NationalInstruments.DAQmx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

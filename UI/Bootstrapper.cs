@@ -33,6 +33,6 @@ namespace UI
             AggregateCatalog.Catalogs.Add(new DirectoryCatalog(designDir));
         }
 
-        private const string designDir = @"\\CH3UW1050\Temporary Transfer\cheng Dewi\Desgin";
+        private const string designDir = @"\\CH3UW1050\Temporary Transfer\cheng Dewi\Design";
     }
 }

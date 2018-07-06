@@ -69,7 +69,7 @@ namespace Teflon.Modules
             // create the workflow designer
             WorkflowDesigner wd = new WorkflowDesigner();
             designer = wd;
-           // wd.Load(new Flowchart());
+            //wd.Load(new State());
             DesignerBorder.Child = wd.View;
             PropertyBorder.Child = wd.PropertyInspectorView;
         }
